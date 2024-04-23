@@ -1,6 +1,3 @@
-import re
-
-
 def validate_brackets(expression: str) -> str:
     brackets_map = {'(': ')', '[': ']', '{': '}'}
     open_brackets = brackets_map.keys()
