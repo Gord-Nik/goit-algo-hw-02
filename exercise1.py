@@ -1,25 +1,33 @@
 import string
 from queue import Queue
 import random
+import time
 
 queue = Queue()
-
+request_id = 0
 
 def generate_request():
-    # Створення запиту
-    request = ''.join(random.sample(string.ascii_lowercase, 15))
-    queue.put(request)
+    global request_id
+    request_id += 1
 
+    request_data = ''.join(random.sample(string.ascii_lowercase, 15))
+    request = f"Request ID {request_id}: {request_data}"
+    queue.put(request)
+    print(f"Generated and added to queue: {request}")
 
 def process_request():
     if queue.empty():
         print("Queue is empty")
     else:
-        # Опрацювання запиту
+        # Process the request by removing it from the queue
         request = queue.get()
-        print(request)
+        print(f"Processed request: {request}")
 
 if __name__ == "__main__":
-    while True:
-        generate_request()
-        process_request()
+    try:
+        while True:
+            generate_request()
+            process_request()
+            time.sleep(1)  # Add a delay of 1 second to simulate processing time
+    except KeyboardInterrupt:
+        print("Exiting program...")
